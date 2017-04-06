@@ -1,0 +1,23 @@
+{
+  "name": "Playground-1-javaScript",
+  "version": "1.0.0",
+  "description": "Playground to learn JavaScript",
+  "main": "index.js",
+  "repository": "https://github.com/csmith111/playground-1-JavaScript.git",
+  "author": "V Jay <codesmith111@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "jquery": "^3.2.1",
+    "moment": "^2.18.1",
+    "webpack": "^2.3.2",
+    "webpack-dev-server": "^2.4.2"
+  },
+  "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "raw-loader": "^0.5.1"
+  },
+  "scripts": {
+    "start": "webpack-dev-server --progress --colors --watch"
+  }
+}

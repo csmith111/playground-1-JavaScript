@@ -1,0 +1,16 @@
+table{
+    background-color:"#80b3ff";
+    border: 1px solid black;
+}
+
+.table-striped>tbody>tr:nth-child(even)>td{
+    background-color:#e6f0ff;
+}
+.table-striped>tbody>tr:nth-child(odd)>td{
+    background-color: #cce0ff;
+}
+
+.error-message { 
+    color: red;
+    font-weight: bold;
+}
