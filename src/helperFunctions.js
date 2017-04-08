@@ -8,9 +8,5 @@ function display(aString) {
 	document.body.appendChild(element)
 }
 
-function sum(x, y){
-    return x+y
-}
-
-module.exports = {display, sum}
+module.exports = {display}
 

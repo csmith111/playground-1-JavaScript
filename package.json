@@ -10,7 +10,8 @@
     "jquery": "^3.2.1",
     "moment": "^2.18.1",
     "webpack": "^2.3.2",
-    "webpack-dev-server": "^2.4.2"
+    "webpack-dev-server": "^2.4.2",
+    "wepack": "^0.0.1"
   },
   "devDependencies": {
     "eslint": "^3.18.0",
