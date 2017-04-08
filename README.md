@@ -70,7 +70,7 @@ Concurrent First Task is executing in function call: 3 - current time: 15:02:29:
 The first thing to notice is that there is no fixed order in which our code is executing. 
 The callbacks that we have passed to set timeout exectute `asynchronously`.
 
-__Non-determinate processes are hard to deal with.__
+__Non-deterministic code is hard to deal with.__
 Reasoning about asynchronous code is a very difficult thing for us. Since we lose
 deterministic execution and it is the source of many bugs that are hard to detect and fix.
 
@@ -140,25 +140,25 @@ then all will be well.
 __Note: Is there a way to do this outside delayedTaskWithErrorsAndErrorHandling?__
 
 
+Once we have a a robust way to handle errors, we still have to deal with another problem -Synchronization. 
 
-
-
-## Synchronization
-
-Now if we wanted to coordinate the behavior of these tasks we have a different problem to deal with. 
+## Synchronization in code with Asynchronous callbacks
+Now if we wanted to coordinate the behavior of these asynchronous tasks we have a different problem to deal with. 
 Here are some typical patterns that we will need:
 * Sequencing multiple async tasks
 * Trigger behavior after all tasks have completed
 
 
-## Do something after all tasks have completed
+### Do something after all tasks have completed
 We could keep a global variable and use that to detect that all tasks have completed. 
 
-## Perform tasks in sequence
+### Perform tasks in sequence
 we could have each function accept the next function to execute and call it.
 
 
-## Promises
+## Promises - Simplyfing Asynchronous code
 
+## Generators - Simplyfing Asynchronous code
 
+## Async - Simplyfing Asynchronous code
 
