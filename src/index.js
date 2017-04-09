@@ -82,42 +82,60 @@ const test1 = function(id){
     hf.display("Time elapsed to complete the function - synchronous parts - " + x2.diff(x1).valueOf('x'))
 }
 
-test1(1)
+//test1(1)
+
+//Creating a Promise
+
+const testCreatingAPromise =function(){
+
+    let p = new Promise((resolve) => resolve(42))
+    p.then((val)=>hf.display('Runing then callback after promise creation ' +val))
+
+    let p1 = new Promise((resolve, reject)=>{
+        const isError = true
+        if(!isError){
+            resolve(isError)
+        }else{
+            reject(isError)
+    }
+    }).then((val)=>hf.display('There was no error ' +val))
+    .catch(val => hf.display("Oops there was an error " +val))
+}
 
 
 //using Promises
 const delayedPromise= function(message){
         let delay = 2000
-        return new Promise((resolve, reject)=>{
+        return new Promise(()=>{
             setTimeout(function(){
-            hf.display(message +" - current time: " +  moment().format('HH:mm:ss:SSS'))
-            throw new Error("delayed function had an error")}, delay)
+                hf.display(message +" - current time: " +  moment().format('HH:mm:ss:SSS'))
+            }, delay)
         })
 }
 
 const promiseWithErrors = (id, message, makeError) =>{
     return new Promise(
         (resolve,reject)=>{
-            hf.display('id:'+id + message +"-errors flag: " + makeError)
+            hf.display( message +' id: '+id + "-errors flag: " + makeError)
             if(!makeError){
-                resolve('id:'+id + message +'- error flag is: ' + makeError)
+                resolve( message +' id: '+id +'- error flag is: ' + makeError)
             }
-                else{reject('id:'+id + message + 'OOPS - error flag is: ' + makeError)
+                else{reject('OOOPS - '+ message +' id: '+id + 'error flag is: ' + makeError)
             }
     })
 }
 
 
-const test2 = function(id){
+const testPromises = function(id){
     hf.display("Starting test function with Promises " + id)
     const x1 = moment()
 
-    let promise = promiseWithErrors(1, "a new promise", true)
+    let promise = promiseWithErrors(1, "Creating promise with errors", true)
             promise.then(hf.display('Running first THEN call after for promiseWithErrors'))
-            .catch(e => hf.display("There was an error " +e))
-            .then(hf.display('Running first THEN call after for promiseWithErrors'))
-            .then(promiseWithErrors(2, "First THEN task with errors", true))
-            .then(taskWithRandomDelay("Task after the error"))
+            .catch(e => hf.display("Catch block triggered! There was an error " +e))
+            .then(promiseWithErrors(2, "Create a Promise with errors", true))
+            .then(delayedPromise("Running delayed task after the second Promise with error"))
+            .then(hf.display('Running THEN call after second promiseWithErrors'))
             .catch(e => hf.display("There was an error " +e))
             
     const x2 = moment()
@@ -126,30 +144,7 @@ const test2 = function(id){
 }
 
 
-//test2(1)
-//test2(2)
-//test2(3)
-
-
-
-
-/*new Promise((resolve,reject)=>{
-        hf.display("first promise in chain")
-        
-        resolve("first promise completed")
-        reject('oops')
-    })
-    .catch(error =>{hf.display(error)})
-    .then((value)=>hf.display("second promise in chain value from previous promise : " + value))
-    .then((value)=>hf.display("third promise in chain " + value))
-*/
-
-//const a_promise = new Promise((resolve, reject) => {resolve(1)})
-//a_promise.then(res => delayedTaskWithErrors("a task"))
-//.catch(error=> {hf.display(error.stack)})
-
-
-
+testPromises(1)
 
 
 

@@ -74,7 +74,7 @@ __Non-deterministic code is hard to deal with.__
 Reasoning about asynchronous code is a very difficult thing for us. Since we lose
 deterministic execution and it is the source of many bugs that are hard to detect and fix.
 
-**One important idea that I find useful is to be clear about which portions of the code is 
+**One important idea that I find useful, is to be clear about which portions of the code is 
 synchronous and which part is asynchronous.**
 
 Just making portions of our code aynchronous may be manageable, the problem is that we want to 
@@ -157,6 +157,86 @@ we could have each function accept the next function to execute and call it.
 
 
 ## Promises - Simplyfing Asynchronous code
+
+### Using Promises
+The promises library is supposed to enable us to write cleaner asynchronous code. 
+It continues to use the callback mechanisms internally, but it gives us a cleaner syntax and better error handling. 
+
+Let us see how a basic promise is created and used.
+
+```javascript
+let p = new Promise((resolve) => resolve(42))
+p.then((val)=>hf.display('Runing then callback after promise creation ' +val))
+
+```
+
+or more generally
+
+```javascript
+let p1 = new Promise((resolve, reject)=>{
+    const isError = true
+    if(!isError){
+        resolve(isError)
+    }else{
+        reject(isError)
+    }
+}).then((val)=>hf.display('There was no error ' +val))
+.catch(val => hf.display("Oops there was an error " +val))
+```
+Try changing the isError flag and you can see that the error handler in the catch bock is triggered. 
+
+
+
+__note__ This is where I am not sure any more how things work.
+### Handling errors with Promises:
+```javascript
+//using Promises
+const delayedPromise= function(message){
+        let delay = 2000
+        return new Promise((resolve, reject)=>{
+            setTimeout(function(){
+                hf.display(message +" - current time: " +  moment().format('HH:mm:ss:SSS'))
+            }, delay)
+        })
+}
+
+const promiseWithErrors = (id, message, makeError) =>{
+    return new Promise(
+        (resolve,reject)=>{
+            hf.display( message +' id: '+id + "-errors flag: " + makeError)
+            if(!makeError){
+                resolve( message +' id: '+id +'- error flag is: ' + makeError)
+            }
+                else{reject('OOOPS - '+ message +' id: '+id + 'error flag is: ' + makeError)
+            }
+    })
+}
+
+
+const testPromises = function(id){
+    hf.display("Starting test function with Promises " + id)
+    const x1 = moment()
+
+    let promise = promiseWithErrors(1, "Creating promise with errors", true)
+            promise.then(hf.display('Running first THEN call after for promiseWithErrors'))
+            .catch(e => hf.display("Catch block triggered! There was an error " +e))
+            .then(promiseWithErrors(2, "Create a Promise with errors", true))
+            .then(delayedPromise("Running delayed task after the second Promise with error"))
+            .then(hf.display('Running THEN call after second promiseWithErrors'))
+            .catch(e => hf.display("There was an error " +e))
+            
+    const x2 = moment()
+    //This will exectute first even though it is the last statement
+    hf.display("Time elapsed to complete the function - synchronous parts - " + x2.diff(x1).valueOf('x'))
+}
+
+
+testPromises(1)
+```
+
+
+
+
 
 ## Generators - Simplyfing Asynchronous code
 
