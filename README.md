@@ -164,13 +164,21 @@ It continues to use the callback mechanisms internally, but it gives us a cleane
 
 Let us see how a basic promise is created and used.
 
+You can create promise using the following two Promise constructors:
 ```javascript
-let p = new Promise((resolve) => resolve(42))
+const p1 = new Promise((resolve) => resolve(42))
+const p2 = new Promise((resolve, reject) => reject(42))
+```
+
+Once you have created a promise then you can create a chain of actions using
+the `then` contruction like this. 
+```javascript
+const p = new Promise((resolve) => resolve(42))
 p.then((val)=>hf.display('Runing then callback after promise creation ' +val))
 
 ```
 
-or more generally
+Here is a more general representation of a Promise showing both the resolove and reject branches. 
 
 ```javascript
 let p1 = new Promise((resolve, reject)=>{
@@ -183,11 +191,12 @@ let p1 = new Promise((resolve, reject)=>{
 }).then((val)=>hf.display('There was no error ' +val))
 .catch(val => hf.display("Oops there was an error " +val))
 ```
+The rejection from the reject branch are caught by a catch function with takes a callback 
+to handle the promise rejection.
 Try changing the isError flag and you can see that the error handler in the catch bock is triggered. 
 
+__note__ This is where I am not sure exactly how things work.
 
-
-__note__ This is where I am not sure any more how things work.
 ### Handling errors with Promises:
 ```javascript
 //using Promises
