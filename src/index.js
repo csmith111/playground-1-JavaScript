@@ -5,6 +5,9 @@ const hf = require('./helperFunctions')
 
 hf.display('<h3>Learning JavaScript Promises</h3>')
 
+const runFunction= function(f){
+
+}
 const taskWithDelay = function(message, delay=2000){
         setTimeout(function(){
             hf.display(message +" - current time : " +  moment().format('HH:mm:ss:SSS'))
@@ -79,7 +82,7 @@ const test1 = function(id){
     }
     const x2 = moment()
     //This will exectute first even though it is the last statement
-    hf.display("Time elapsed to complete the function - synchronous parts - " + x2.diff(x1).valueOf('x'))
+    hf.display('Time elapsed to complete the function - synchronous parts - ' + x2.diff(x1).valueOf('x'))
 }
 
 //test1(1)
@@ -131,11 +134,10 @@ const testPromises = function(id){
     const x1 = moment()
 
     let promise = promiseWithErrors(1, "Creating promise with errors", true)
-            promise.then(hf.display('Running first THEN call after for promiseWithErrors'))
-            .catch(e => hf.display("Catch block triggered! There was an error " +e))
+            //promise.then(hf.display('Running first THEN call after for promiseWithErrors'))
+            //.catch(e => hf.display("Catch block triggered! There was an error " +e))
             .then(promiseWithErrors(2, "Create a Promise with errors", true))
-            .then(delayedPromise("Running delayed task after the second Promise with error"))
-            .then(hf.display('Running THEN call after second promiseWithErrors'))
+            //.then(delayedPromise("Running delayed task after the second Promise with error"))
             .catch(e => hf.display("There was an error " +e))
             
     const x2 = moment()

@@ -191,11 +191,23 @@ let p1 = new Promise((resolve, reject)=>{
 }).then((val)=>hf.display('There was no error ' +val))
 .catch(val => hf.display("Oops there was an error " +val))
 ```
-The rejection from the reject branch are caught by a catch function with takes a callback 
+The rejection from the `reject` branch is caught by a `catch` function with takes a callback 
 to handle the promise rejection.
 Try changing the isError flag and you can see that the error handler in the catch bock is triggered. 
 
 __note__ This is where I am not sure exactly how things work.
+
+Inside the promise there is code that runs synchronously and code that runs aynchronously.
+And you can have errors in both types of code. 
+
+### Throw vs reject inside promises
+
+__Within the call backs passed to the `then` if an errors is thrown it is automatically converted into a reject call by the Promise implementatio???.__ 
+Is this right? 
+
+__Within the call backs passed to the `resolve` call if an errors is thrown it is automatically converted into a reject call by the Promise implementation???__ 
+
+
 
 ### Handling errors with Promises:
 ```javascript
