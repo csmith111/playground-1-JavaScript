@@ -18,8 +18,21 @@ const promiseWithErrors1 = (val) =>{
         (resolve, reject)=>reject('OOOPS - Error in Promise')
     )
 }
+//Created this to make test the then call. 
+// This error will not be handled.
+const promiseWithErrors2 = () =>{
+    console.log("Inside the promise callback--")
+    return new Promise(
+        (resolve, reject)=>reject('OOOPS - Error in Promise')
+    )
+}
 
 let promise = promiseWithErrors(1, "Creating promise with errors", false)
-            .then(promiseWithErrors1)  //no problems now because the function accepts on parameter    
+            .then(promiseWithErrors2)  //no problems now because the function accepts on parameter    
             .catch(e => console.log(e))  
+
+
+/*let promise = promiseWithErrors(1, "Creating promise with errors", false)
+            .then(promiseWithErrors1)  //no problems now because the function accepts on parameter    
+            .catch(e => console.log(e))  */
 
